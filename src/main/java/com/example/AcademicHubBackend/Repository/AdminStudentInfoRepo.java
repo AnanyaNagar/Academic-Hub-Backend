@@ -1,6 +1,6 @@
-package com.example.AcademicHubBackend.Repository;
+package com.example.AcademicHubBackend.repository;
 
-import com.example.AcademicHubBackend.Model.AdminStudentInfo;
+import com.example.AcademicHubBackend.model.AdminStudentInfo;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
