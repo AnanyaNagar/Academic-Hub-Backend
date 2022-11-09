@@ -6,5 +6,5 @@ import org.springframework.stereotype.Service;
 
 public interface AdminStduentInfoService {
     public AdminStudentInfo addStudent(AdminStudentInfo studentInfo);
-
+    public String deleteStudent(String studentId);
 }

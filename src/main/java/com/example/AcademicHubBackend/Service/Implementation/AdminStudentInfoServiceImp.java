@@ -14,10 +14,12 @@ import com.example.AcademicHubBackend.Service.AdminStduentInfoService;
 @Service
 public class AdminStudentInfoServiceImp implements AdminStduentInfoService{
 
+
     @Autowired
     private AdminStudentInfoRepo adminStudentInfoRepo;
 
-
+    @Autowired
+    private EmailSenderService emailSenderService;
 
     @Override
     public AdminStudentInfo addStudent(AdminStudentInfo studentInfo) {
@@ -26,7 +28,15 @@ public class AdminStudentInfoServiceImp implements AdminStduentInfoService{
         studentInfo1.setLastName(studentInfo.getLastName());
         studentInfo1.setEmail(studentInfo.getEmail());
         studentInfo1.setYear(studentInfo.getYear());
+        studentInfo1.setPassword(studentInfo.getPassword());
+        emailSenderService.sendEmail(studentInfo.getEmail(),studentInfo.getPassword(),studentInfo.getFirstName(),"Student login details","www.");
         adminStudentInfoRepo.save(studentInfo1);
         return studentInfo1;
+    }
+
+    @Override
+    public String deleteStudent(String studentId) {
+
+        return null;
     }
 }

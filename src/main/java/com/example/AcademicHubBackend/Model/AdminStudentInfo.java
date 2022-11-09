@@ -15,4 +15,5 @@ public class AdminStudentInfo {
     private String lastName ;
     private String year;
     private String email;
+    private String password;
 }
