@@ -1,9 +1,11 @@
 package com.example.AcademicHubBackend.configuration;
 
+import com.example.AcademicHubBackend.Service.Implementation.AdminStudentInfoServiceImp;
 import com.example.AcademicHubBackend.Service.Implementation.OrganizationUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,14 +14,19 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class OrganizationSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private OrganizationUserService organizationUserService;
 
+    @Autowired
+    private AdminStudentInfoServiceImp adminStudentInfoServiceImp;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(organizationUserService);
+         auth.userDetailsService(organizationUserService);
+
+//        auth.authenticationProvider(authProvider1()).authenticationProvider(authProvider2());
     }
 
     @Override
@@ -48,4 +55,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
+
+//    @Bean
+//    public DaoAuthenticationProvider authProvider1(){
+//        DaoAuthenticationProvider authProvider=new DaoAuthenticationProvider();
+//
+//        authProvider.setUserDetailsService(organizationUserService);
+//        authProvider.setPasswordEncoder(passwordEncoder());
+//
+//        return authProvider;
+//    }
+//
+//    @Bean
+//    public DaoAuthenticationProvider authProvider2(){
+//        DaoAuthenticationProvider authProvider=new DaoAuthenticationProvider();
+//
+//        authProvider.setUserDetailsService(adminStudentInfoServiceImp);
+//        authProvider.setPasswordEncoder(passwordEncoder());
+//
+//        return authProvider;
+//    }
 }

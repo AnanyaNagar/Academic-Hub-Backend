@@ -10,9 +10,14 @@ import java.math.BigDecimal;
 @Document(collection = "AdminStudent")
 public class AdminStudentInfo {
     @Id
+    private String enrollment;
+
     private String studentId;
     private String firstName ;
     private String lastName ;
     private String year;
     private String email;
+    private String password;
+    private String department;
+    private String branch;
 }
