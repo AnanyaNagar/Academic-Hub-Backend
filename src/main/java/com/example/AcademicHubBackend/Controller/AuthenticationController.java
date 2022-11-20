@@ -1,14 +1,14 @@
 package com.example.AcademicHubBackend.Controller;
 
-import com.example.AcademicHubBackend.model.AuthenticationRequest;
-import com.example.AcademicHubBackend.model.OrganizationUserModel;
-import com.example.AcademicHubBackend.model.RegistrationRequest;
+import com.example.AcademicHubBackend.model.*;
+import com.example.AcademicHubBackend.repository.AdminStudentInfoRepo;
 import com.example.AcademicHubBackend.repository.OrganizationUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,12 +21,15 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private AdminStudentInfoRepo adminStudentInfoRepo;
+
     @PostMapping("/register")
-    private ResponseEntity<String> register(@RequestBody RegistrationRequest registrationRequest){
+    private ResponseEntity<String> register(@RequestBody OrgRegistrationModel orgRegistrationModel){
         System.out.println("Reached registration");
-        String email = registrationRequest.getEmail();
-        String password = registrationRequest.getPassword();
-        String orgName = registrationRequest.getOrgName();
+        String email = orgRegistrationModel.getEmail();
+        String password = orgRegistrationModel.getPassword();
+        String orgName = orgRegistrationModel.getOrgName();
 
         OrganizationUserModel organizationUserModel =  new OrganizationUserModel();
         organizationUserModel.setEmail(email);
@@ -43,14 +46,11 @@ public class AuthenticationController {
 
 
     @PostMapping("/login")
-    private ResponseEntity<String> login(@RequestBody AuthenticationRequest authenticationRequest){
-        System.out.println("Reached login");
-        String email = authenticationRequest.getEmail();
-        String password = authenticationRequest.getPassword();
+    private ResponseEntity<String> login(@RequestBody OrgAuthenticationModel orgAuthenticationModel){
+        String email = orgAuthenticationModel.getEmail();
+        String password = orgAuthenticationModel.getPassword();
         try {
-            System.out.println("Reached try");
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
-            System.out.println("logged in");
         }
         catch (Exception e){
             System.out.println(e.getCause());
@@ -59,4 +59,24 @@ public class AuthenticationController {
         }
         return ResponseEntity.ok("Organization was successfully authenticated");
     }
+
+
+    @PostMapping("/student/login")
+    private ResponseEntity<String> studentLogin(@RequestBody StudentAuthenticationModel studentAuthenticationModel){
+        String enrollment = studentAuthenticationModel.getEnrollment();
+        String password = studentAuthenticationModel.getPassword();
+        try {
+            if(adminStudentInfoRepo.existsById(enrollment) && adminStudentInfoRepo.findById(enrollment).get().getPassword().equals(password))
+                System.out.println("Found!");
+            else
+                throw new UsernameNotFoundException("Either the enrollment or password is wrong!");
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            System.out.print(e.getMessage());
+            return ResponseEntity.ok("Bad Credentials");
+        }
+        return ResponseEntity.ok("Student successfully logged in");
+    }
+
 }

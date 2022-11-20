@@ -1,8 +1,11 @@
 package com.example.AcademicHubBackend.Controller;
+import com.example.AcademicHubBackend.model.StudentAuthenticationModel;
 import com.example.AcademicHubBackend.repository.AdminStudentInfoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import com.example.AcademicHubBackend.model.AdminStudentInfo;
 import com.example.AcademicHubBackend.Service.AdminStduentInfoService;
@@ -13,6 +16,9 @@ public class AdminStudentInfoController {
 
     @Autowired
     private AdminStudentInfoRepo adminStudentInfoRepo;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     private AdminStduentInfoService adminStduentInfoService;
@@ -29,8 +35,6 @@ public class AdminStudentInfoController {
         adminStudentInfoRepo.deleteById(studentId);
         return "Student Information Deleted Successfully";
     }
-
-
 
 
 

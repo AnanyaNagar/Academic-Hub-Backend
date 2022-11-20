@@ -26,6 +26,5 @@ public class OrganizationUserService implements UserDetailsService {
         String password = retrieved_data.getPassword();
 
         return new User(email, password, new ArrayList<>());
-
     }
 }
