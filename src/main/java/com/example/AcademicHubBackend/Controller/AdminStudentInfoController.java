@@ -23,7 +23,7 @@ public class AdminStudentInfoController {
     @Autowired
     private AdminStduentInfoService adminStduentInfoService;
 
-    // add new student
+    // add new student, delete a student, change details such as:
     @PostMapping("/admin/studentinfo/addstudent")
     public ResponseEntity<?> addStduent(@RequestBody AdminStudentInfo studentInfo){
         adminStduentInfoService.addStudent(studentInfo);

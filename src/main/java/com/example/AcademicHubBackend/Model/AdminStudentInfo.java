@@ -15,7 +15,7 @@ public class AdminStudentInfo {
     private String studentId;
     private String firstName ;
     private String lastName ;
-    private String year;
+    private Integer year;
     private String email;
     private String password;
     private String department;

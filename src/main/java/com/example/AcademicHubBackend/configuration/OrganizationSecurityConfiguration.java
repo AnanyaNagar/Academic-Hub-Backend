@@ -25,7 +25,6 @@ public class OrganizationSecurityConfiguration extends WebSecurityConfigurerAdap
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
          auth.userDetailsService(organizationUserService);
-
 //        auth.authenticationProvider(authProvider1()).authenticationProvider(authProvider2());
     }
 
