@@ -30,6 +30,12 @@ public class AdminStudentInfoController {
         return new ResponseEntity<>(studentInfo,HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/delete/{studentId}")
+    public String deleteStudent(@PathVariable String studentId){
+        adminStudentInfoRepo.deleteById(studentId);
+        return "Student Information Deleted Successfully";
+    }
+
 
 
 
