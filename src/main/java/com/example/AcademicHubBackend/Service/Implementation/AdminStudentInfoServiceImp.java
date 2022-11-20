@@ -1,6 +1,7 @@
 package com.example.AcademicHubBackend.Service.Implementation;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.UUID;
 
 //import javax.validation.ConstraintViolationException;
 
@@ -25,13 +26,22 @@ public class AdminStudentInfoServiceImp implements AdminStduentInfoService {
 
     @Override
     public AdminStudentInfo addStudent(AdminStudentInfo studentInfo) {
-        adminStudentInfoRepo.save(studentInfo);
-        return studentInfo;
+        AdminStudentInfo studentInfo1=new AdminStudentInfo();
+        studentInfo1.setEnrollment(studentInfo.getEnrollment());
+        studentInfo1.setFirstName(studentInfo.getFirstName());
+        studentInfo1.setLastName(studentInfo.getLastName());
+        studentInfo1.setEmail(studentInfo.getEmail());
+        studentInfo1.setYear(studentInfo.getYear());
+        studentInfo1.setPassword(studentInfo.getPassword());
+        emailSenderService.sendEmail(studentInfo.getEmail(),studentInfo.getPassword(),studentInfo.getFirstName(),"Student login details","www.");
+        adminStudentInfoRepo.save(studentInfo1);
+        return studentInfo1;
+
+
     }
 
     @Override
     public String deleteStudent(String studentId) {
-
         return null;
     }
 }

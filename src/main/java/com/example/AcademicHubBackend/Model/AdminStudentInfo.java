@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 public class AdminStudentInfo {
     @Id
     private String enrollment;
-
     private String studentId;
     private String firstName ;
     private String lastName ;

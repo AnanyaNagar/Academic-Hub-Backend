@@ -47,8 +47,8 @@ public class EmailSenderService {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
             mimeMessageHelper.setSubject(subject);
-            mimeMessageHelper.setFrom("acadmic9876@gmail.com");
-            mimeMessageHelper.setTo("ayushirawat1818@gmail.com");
+            mimeMessageHelper.setFrom("muniversity055@gmail.com");
+            mimeMessageHelper.setTo(toEmail);
 //            int length=cartItems.size();
             Date date =new Date();
 //            //   body.setContent(getContentFromTemplate(body.getModel()));

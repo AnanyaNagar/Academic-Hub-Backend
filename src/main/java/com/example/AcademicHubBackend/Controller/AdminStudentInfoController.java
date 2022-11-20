@@ -30,13 +30,27 @@ public class AdminStudentInfoController {
         return new ResponseEntity<>(studentInfo,HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete/{studentId}")
-    public String deleteStudent(@PathVariable String studentId){
-        adminStudentInfoRepo.deleteById(studentId);
+    @DeleteMapping("/delete/{enrollment}")
+    public String deleteStudent(@PathVariable String enrollment){
+        adminStudentInfoRepo.deleteById(enrollment);
         return "Student Information Deleted Successfully";
     }
 
-
+    @PutMapping("/admin/studentinfo/editStudent/{enrollment}")
+    public String editStudent(@RequestBody AdminStudentInfo adminStudentInfo, @PathVariable String enrollment){
+        AdminStudentInfo temp = adminStudentInfoRepo.findById(enrollment).get();
+        temp.setEnrollment(adminStudentInfo.getEnrollment());
+        temp.setPassword(adminStudentInfo.getPassword());
+        temp.setDepartment(adminStudentInfo.getDepartment());
+        temp.setEmail(adminStudentInfo.getEmail());
+        temp.setBranch(adminStudentInfo.getBranch());
+        temp.setYear(adminStudentInfo.getYear());
+        temp.setFirstName(adminStudentInfo.getFirstName());
+        temp.setLastName(adminStudentInfo.getLastName());
+        adminStudentInfoRepo.deleteById(enrollment);
+        adminStudentInfoRepo.save(temp);
+        return "Successfully changed";
+    }
 
 
 }
