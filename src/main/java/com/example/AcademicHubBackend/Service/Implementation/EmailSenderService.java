@@ -40,7 +40,7 @@ public class EmailSenderService {
     private AdminStudentInfoRepo adminStudentInfoRepo;
 
 
-    public void sendEmail (String toEmail,String password , String studentId, String subject ,String link) {
+    public void sendEmail (String toEmail,String password , String studentId, String subject) {
         MimeMessage mimeMessage =javaMailSender.createMimeMessage();
         try {
 
@@ -71,8 +71,8 @@ public class EmailSenderService {
             sb.append("</td><td style=\"margin:10px;padding:5px\">");
             sb.append(password);
             sb.append("</td><td style=\"margin:10px;pdding:5px\">");
-            sb.append(link);
-            sb.append("</td></tr>");
+//            sb.append(link);
+//            sb.append("</td></tr>");
 
 
 

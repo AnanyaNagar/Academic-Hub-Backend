@@ -26,7 +26,6 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     private ResponseEntity<String> register(@RequestBody OrgRegistrationModel orgRegistrationModel){
-        System.out.println("Reached registration");
         String email = orgRegistrationModel.getEmail();
         String password = orgRegistrationModel.getPassword();
         String orgName = orgRegistrationModel.getOrgName();
@@ -66,7 +65,8 @@ public class AuthenticationController {
         String enrollment = studentAuthenticationModel.getEnrollment();
         String password = studentAuthenticationModel.getPassword();
         try {
-            if(adminStudentInfoRepo.existsById(enrollment) && adminStudentInfoRepo.findById(enrollment).get().getPassword().equals(password))
+            if(adminStudentInfoRepo.existsById(enrollment) && adminStudentInfoRepo.findById(enrollment)
+                    .get().getPassword().equals(password))
                 System.out.println("Found!");
             else
                 throw new UsernameNotFoundException("Either the enrollment or password is wrong!");

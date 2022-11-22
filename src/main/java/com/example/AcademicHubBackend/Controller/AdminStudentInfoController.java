@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import com.example.AcademicHubBackend.model.AdminStudentInfo;
 import com.example.AcademicHubBackend.Service.AdminStduentInfoService;
 
+import java.text.ParseException;
+
 @RestController
 @RequestMapping("/adm/v2")
 public class AdminStudentInfoController {
@@ -24,9 +26,17 @@ public class AdminStudentInfoController {
     private AdminStduentInfoService adminStduentInfoService;
 
     // add new student, delete a student, change details such as:
+
+    @GetMapping("/admin/studentInfo/allStudent")
+    public ResponseEntity<?> allStudent(){
+        long count = adminStudentInfoRepo.count();
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
+
     @PostMapping("/admin/studentinfo/addstudent")
-    public ResponseEntity<?> addStduent(@RequestBody AdminStudentInfo studentInfo){
+    public ResponseEntity<?> addStduent(@RequestBody AdminStudentInfo studentInfo) throws ParseException {
         adminStduentInfoService.addStudent(studentInfo);
+
         return new ResponseEntity<>(studentInfo,HttpStatus.CREATED);
     }
 

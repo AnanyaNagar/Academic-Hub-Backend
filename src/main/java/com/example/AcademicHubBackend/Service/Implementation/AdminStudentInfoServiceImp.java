@@ -1,5 +1,9 @@
 package com.example.AcademicHubBackend.Service.Implementation;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,19 +29,12 @@ public class AdminStudentInfoServiceImp implements AdminStduentInfoService {
     private EmailSenderService emailSenderService;
 
     @Override
-    public AdminStudentInfo addStudent(AdminStudentInfo studentInfo) {
-        AdminStudentInfo studentInfo1=new AdminStudentInfo();
-        studentInfo1.setEnrollment(studentInfo.getEnrollment());
-        studentInfo1.setFirstName(studentInfo.getFirstName());
-        studentInfo1.setLastName(studentInfo.getLastName());
-        studentInfo1.setEmail(studentInfo.getEmail());
-        studentInfo1.setYear(studentInfo.getYear());
-        studentInfo1.setPassword(studentInfo.getPassword());
-        emailSenderService.sendEmail(studentInfo.getEmail(),studentInfo.getPassword(),studentInfo.getFirstName(),"Student login details","www.");
-        adminStudentInfoRepo.save(studentInfo1);
-        return studentInfo1;
+    public AdminStudentInfo addStudent(AdminStudentInfo studentInfo) throws ParseException {
 
-
+        studentInfo.setDateOfAdmission(java.time.LocalDate.now().toString());
+        emailSenderService.sendEmail(studentInfo.getEmail(),studentInfo.getPassword(),studentInfo.getFirstName(),"Student login details");
+        adminStudentInfoRepo.save(studentInfo);
+        return studentInfo;
     }
 
     @Override
