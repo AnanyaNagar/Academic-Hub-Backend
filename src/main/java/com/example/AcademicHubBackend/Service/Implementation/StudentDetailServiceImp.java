@@ -19,7 +19,9 @@ public class StudentDetailServiceImp implements StudentDetailService {
     @Override
     public String changePassword(String enrollment, String password) {
         try {
-            adminStudentInfoRepo.findById(enrollment).get().setPassword(password);
+            AdminStudentInfo adminStudentInfo = adminStudentInfoRepo.findById(enrollment).get();
+            adminStudentInfo.setPassword(password);
+            adminStudentInfoRepo.save(adminStudentInfo);
         }
         catch (Exception e){
             return e.getMessage();
@@ -30,10 +32,17 @@ public class StudentDetailServiceImp implements StudentDetailService {
     @Override
     public void addFirstProject(ProjectDescriptionModel projectDescriptionModel, String enrollment) {
         AdminStudentInfo adminStudentInfo = adminStudentInfoRepo.findById(enrollment).get();
-//        adminStudentInfo.getProjects().
         List<ProjectDescriptionModel> projects = new ArrayList<>();
         projects.add(projectDescriptionModel);
         adminStudentInfo.setProjects(projects);
+        adminStudentInfoRepo.save(adminStudentInfo);
+    }
+
+    @Override
+    public void addProject(ProjectDescriptionModel projectDescriptionModel, String enrollment) {
+        AdminStudentInfo adminStudentInfo = adminStudentInfoRepo.findById(enrollment).get();
+        List<ProjectDescriptionModel> projects = adminStudentInfo.getProjects();
+        projects.add(projectDescriptionModel);
         adminStudentInfoRepo.save(adminStudentInfo);
     }
 }

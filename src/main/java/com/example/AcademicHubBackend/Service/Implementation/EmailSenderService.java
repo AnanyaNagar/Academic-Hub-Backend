@@ -33,8 +33,6 @@ public class EmailSenderService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-//    @Autowired
-//    private UserRepo userRepo;
 
     @Autowired
     private AdminStudentInfoRepo adminStudentInfoRepo;

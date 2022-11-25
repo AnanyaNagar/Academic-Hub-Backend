@@ -7,4 +7,6 @@ public interface StudentDetailService {
     public String changePassword(String enrollment, String password);
 
     public void addFirstProject(ProjectDescriptionModel projectDescriptionModel, String enrollment);
+
+    public void addProject(ProjectDescriptionModel projectDescriptionModel, String enrollment);
 }
