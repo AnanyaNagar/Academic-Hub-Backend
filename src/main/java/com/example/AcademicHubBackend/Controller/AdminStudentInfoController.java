@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import com.example.AcademicHubBackend.model.AdminStudentInfo;
 import com.example.AcademicHubBackend.Service.AdminStduentInfoService;
 import java.text.ParseException;
-import java.util.HashMap;
 
 @RestController
 @RequestMapping("/adm/v2")
@@ -32,6 +31,13 @@ public class AdminStudentInfoController {
     public ResponseEntity<?> studentCount(){
         long count = adminStudentInfoRepo.count();
         return new ResponseEntity<>(count, HttpStatus.OK);
+    }
+
+
+    //get all student details
+    @GetMapping("/admin/studentInfo/allStudent")
+    public ResponseEntity<?> allStudent(){
+        return new ResponseEntity<>(adminStudentInfoRepo.findAll(), HttpStatus.CREATED);
     }
 
 

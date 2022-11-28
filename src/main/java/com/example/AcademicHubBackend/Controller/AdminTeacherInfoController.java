@@ -23,6 +23,11 @@ public class AdminTeacherInfoController {
     @Autowired
     AdminTeacherInfoService adminTeacherInfoService;
 
+    //get all teachers details
+    @GetMapping("/admin/teacherInfo/allTeacher")
+    public ResponseEntity<?> allTeacher(){
+        return new ResponseEntity<>(adminTeacherInfoRepo.findAll(), HttpStatus.CREATED);
+    }
 
     @PostMapping("/admin/teacherInfo/addTeacher")
     public ResponseEntity<?> addTeacher(@RequestBody AdminTeacherInfo teacherInfo){
