@@ -24,7 +24,7 @@ public class AcademicHubBackendApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS").allowedOrigins("https://6385d105d699ae02616d8251--academic-hub-frontend.netlify.app");
+				registry.addMapping("/**").allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS").allowedOrigins("https://6385d6005c11330ce19d90dc--spiffy-stardust-324744.netlify.app");
 			}
 		};
 	}
