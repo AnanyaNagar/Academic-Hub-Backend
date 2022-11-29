@@ -57,7 +57,6 @@ public class AdminStudentInfoController {
     public String editStudent(@RequestBody AdminStudentInfo adminStudentInfo, @PathVariable String enrollment){
         AdminStudentInfo temp = adminStudentInfoRepo.findById(enrollment).get();
         temp.setEnrollment(adminStudentInfo.getEnrollment());
-//        temp.setPassword(adminStudentInfo.getPassword());
         temp.setDepartment(adminStudentInfo.getDepartment());
         temp.setEmail(adminStudentInfo.getEmail());
         temp.setBranch(adminStudentInfo.getBranch());

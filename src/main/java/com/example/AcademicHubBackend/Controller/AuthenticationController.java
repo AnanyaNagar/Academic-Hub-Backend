@@ -9,10 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,14 +87,14 @@ public class AuthenticationController {
         return ResponseEntity.ok("Student successfully logged in");
     }
 
-    @GetMapping("/admin/totalDepartments")
-    public ResponseEntity<?> totalDepartments(@RequestBody String email){
+    @GetMapping("/admin/totalDepartments/{email}")
+    public ResponseEntity<?> totalDepartments(@PathVariable String email){
         Integer totalDept = organizationUserRepo.findById(email).get().getDepartments().size();
         return new ResponseEntity<>(totalDept, HttpStatus.OK);
     }
 
-    @GetMapping("/admin/totalCourses")
-    public ResponseEntity<?> totalCourses(@RequestBody String email){
+    @GetMapping("/admin/totalCourses/{email}")
+    public ResponseEntity<?> totalCourses(@PathVariable String email){
         Integer totalDept = organizationUserRepo.findById(email).get().getCourses().size();
         return new ResponseEntity<>(totalDept, HttpStatus.OK);
     }
